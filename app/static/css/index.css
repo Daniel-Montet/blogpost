@@ -81,3 +81,134 @@
 #hashtag{
   float: right;
 }
+
+
+/*  */
+/* new css */
+
+body{
+  font-family: arial,sans-serif;
+}
+
+/* .container-fluid{
+  margin-top: 4%;   
+} */
+/* h4:hover,h3:hover,h6:hover{
+  color: #e51075;
+} */
+/* #navbar{
+  overflow: hidden;
+  height: 3rem;
+  position: fixed;
+  z-index: 1;
+  width: 100%;
+  top: 0;
+  
+} */
+/* .nav-link{
+  width: 5rem;
+} */
+#profile-photos{
+  position: relative;   
+}
+
+#cover-photo{
+  width: 100%;
+  height: 15rem;
+  object-fit: cover;
+  object-position: center center;   
+}
+
+#profile-photo{
+  border-radius: 50%;
+  height: 13rem;
+  width: 13rem;
+  position: absolute;
+  object-fit: cover;
+  object-position: center center;
+  top: 30%;
+  left: 10%;
+  border-style: solid;
+  border-width: 10px;
+  border-color: white;
+  /* box-shadow: 0px 4px 5px -2px gray; */
+  box-shadow: 0px 1px 13px -3px grey;
+}
+#identity{
+  height: 4rem;
+}
+
+#profile{
+  position: relative;
+  background-color: whitesmoke;
+}
+#contact{
+  margin-top: 2%;
+}
+#name{
+  margin-left: 30%;
+  margin-top: 1%;
+}
+#position{
+  margin-left: 30%;
+  
+}
+.socials{
+  display: inline;
+}
+#locationicon{
+  margin-left: 30%;
+}
+#facebookicon{
+  margin-left: 2%;
+}
+#linkedinicon{
+  margin-left: 2%;
+}
+#review{
+  margin-left: 30%;
+}
+
+
+
+#profilecontent{
+  margin-top: 2%; 
+  left: 4%;
+  width: 100%;
+}
+
+.officialphone{
+  display: inline;
+  margin-left: 30%;
+}
+
+#officialphone{
+  margin-left: 3.2%;
+  margin-top: 2%;
+}
+
+#mobilephone{
+  margin-left: 40%;
+  margin-top: 1%;
+}
+#emailcontainer{
+  margin-top: 8%;
+}
+.email{
+  display: inline;
+  margin-left: 30%;
+}
+
+#email{
+  margin-left: 4%;
+ 
+}
+
+
+#chatbutton{
+  width: 17rem;
+  border-radius: 35px;
+  margin-left: 25%;
+  margin-top: 5%;
+  background-color: #e51075;
+}

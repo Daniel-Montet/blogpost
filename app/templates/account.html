@@ -2,66 +2,140 @@
 {% import 'macros.html' as macros %}
 {% block content %}
 
-<div class="jumbotron">
-        {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            {% for category,message in messages%}
-                <div class="alert alert-{{ category }}">
-                    {{message}}
-                </div>
-            {% endfor %}
-        {% endif %}
-    {% endwith %} 
-    <div class="header">
-        <img src="{{image_file}}" id="avatar2" class="rounded-circle img-responsive">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category,message in messages%}
+    <div class="alert alert-{{ category }}">
+        {{message}}
     </div>
-    <h2 class="h1-responsive">{{current_user.username}}</h2>
-    <p class="lead">{{current_user.email}}</p>
-    <hr class="my-2">
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    <div class="profile-photos">
+
+        <img class=" img-responsive" id="cover-photo" src="https://images.pexels.com/photos/618833/pexels-photo-618833.jpeg" alt="">
+        <img class=" img-responsive" id="profile-photo" src="{{image_file}}" alt="">
+    </div>
+    <div id="identity">
+        <h4 id="name">{{current_user.username}}</h4>
+        <h6 id="position">student at Moringa School</h6>
+        <span id="locationicon"><i class="fas fa-map-marker-alt"></i></span> <small class="socials"
+            id="location">location</i></small>
+        <span id="linkedinicon"><i class="fab fa-linkedin"></i></i></span> <small class="socials"
+            id="linkedin"></i>linkedIn</small>
+        <span id="facebookicon"><i class="fab fa-facebook"></i></span> <small class="socials"
+            id="facebook"></i>facebook</small>
+        <h3 class="socials" id="review">20 <small>reviews</small></h3>
 
 
-    <div>
-        <form method="POST" action="" enctype="multipart/form-data">
-            {{ form.hidden_tag() }}
-            <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Update Account</legend>
-                <div class="form-group">
-                    {{ form.username.label(class="form-control-label") }}
-                    {% if  form.username.errors %}
-                    {{ form.username(class="form-control form-control is-invalid") }}
-                    <div class="invalid-feedback">
-                        {% for error in form.username.errors %}
-                        <span>{{ error }}</span>
-                        {% endfor %}
-                    </div> 
-                    {% else %}
-                    {{ form.username(class="form-control form-control") }}
-                    {% endif %} 
-    
+    </div>
+    <div class="container-fluid" id="profile">
+        <div class="row">
+            <div id="contact" class="col-md-3">
+                <span class="officialphone"><i class="fas fa-phone"></i></span>
+                <h6 class="officialphone" id="officialphone">+254702644345 (official)</h6>
+                <h6 id="mobilephone">+254702644345 (mobile)</h6>
+                <div id="emailcontainer">
+                    <span class="email"><i class="far fa-envelope"></i></span>
+                    <h6 class="email" id="email">{{current_user.email}}</h6>
                 </div>
-                <div class="form-group">
-                    {{ form.email.label(class="form-control-label") }}
-                    {% if  form.email.errors %}
-                    {{ form.email(class="form-control form-control is-invalid") }}
-                    <div class="invalid-feedback">
-                        {% for error in form.email.errors %}
-                        <span>{{ error }}</span>
-                        {% endfor %}
-                    </div> 
-                    {% else %}
-                    {{ form.email(class="form-control form-control") }}
-                    {% endif %} 
-                </div>
-                <div>
-                    <p>change profile photo</p>
-                    {{form.picture(class ='form-control-file')}}
-                </div>
-            </fieldset>
-            <div class="form-group">
-                {{ form.submit(class="btn btn-outline-info") }}
+
+
+                <button type="button" id="chatbutton" class="btn btn-default btn-rounded"><i class="fab fa-rocketchat"></i>Chat</button>
+
+
             </div>
-        </form>
+            <div id="profilecontent" class="col-md-8">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
+                            aria-controls="home" aria-selected="true">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
+                            aria-controls="profile" aria-selected="false">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab"
+                            aria-controls="contact" aria-selected="false">Contact</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <!-- <div>
+                            <form method="POST" action="" enctype="multipart/form-data">
+                                {{ form.hidden_tag() }}
+                                <fieldset class="form-group">
+                                    <legend class="border-bottom mb-4">Update Account</legend>
+                                    <div class="form-group">
+                                        {{ form.username.label(class="form-control-label") }}
+                                        {% if  form.username.errors %}
+                                        {{ form.username(class="form-control form-control is-invalid") }}
+                                        <div class="invalid-feedback">
+                                            {% for error in form.username.errors %}
+                                            <span>{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                        {% else %}
+                                        {{ form.username(class="form-control form-control") }}
+                                        {% endif %}
+
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form.email.label(class="form-control-label") }}
+                                        {% if  form.email.errors %}
+                                        {{ form.email(class="form-control form-control is-invalid") }}
+                                        <div class="invalid-feedback">
+                                            {% for error in form.email.errors %}
+                                            <span>{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                        {% else %}
+                                        {{ form.email(class="form-control form-control") }}
+                                        {% endif %}
+                                    </div>
+                                    <div>
+                                        <p>change profile photo</p>
+                                        {{form.picture(class ='form-control-file')}}
+                                    </div>
+                                </fieldset>
+                                <div class="form-group">
+                                    {{ form.submit(class="btn btn-outline-info") }}
+                                </div>
+                            </form>
+                        </div> -->
+
+                    </div>
+                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">Food truck
+                        fixie
+                        locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore
+                        velit,
+                        blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer
+                        twee.
+                        Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl
+                        cillum
+                        PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica
+                        VHS
+                        salvia yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson
+                        8-bit,
+                        sustainable jean shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party
+                        scenester
+                        stumptown, tumblr butcher vero sint qui sapiente accusamus tattooed echo park.</div>
+                    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">Etsy mixtape
+                        wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny
+                        pack
+                        lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone
+                        skateboard
+                        locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings
+                        gentrify
+                        squid 8-bit cred pitchfork. Williamsburg banh mi whatever gluten-free, carles pitchfork
+                        biodiesel fixie
+                        etsy retro mlkshk vice blog. Scenester cred you probably haven't heard of them, vinyl craft beer
+                        blog
+                        stumptown. Pitchfork sustainable tofu synth chambray yr.</div>
+                </div>
+            </div>
+        </div>
     </div>
- 
-</div> 
+
 {% endblock content %}
