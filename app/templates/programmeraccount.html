@@ -2,98 +2,141 @@
 {% import 'macros.html' as macros %}
 {% block content %}
 
-    {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-    {% for category,message in messages%}
-    <div class="alert alert-{{ category }}">
-        {{message}}
-    </div>
-    {% endfor %}
-    {% endif %}
-    {% endwith %}
-    <div class="profile-photos">
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+{% for category,message in messages%}
+<div class="alert alert-{{ category }}">
+    {{message}}
+</div>
+{% endfor %}
+{% endif %}
+{% endwith %}
+<div class="profile-photos">
 
-        <img class=" img-responsive" id="cover-photo" src="{{image_file}}" alt="">
-        <img class=" img-responsive" id="profile-photo" src="{{ url_for('static',filename='images/' + post.author.image_file) }}" alt="">
-    </div>
-    <div id="identity">
-        <h4 id="name">{{post.author.username}}</h4>
-        <h6 id="position">student at Moringa School</h6>
-        <span id="locationicon"><i class="fas fa-map-marker-alt"></i></span> <small class="socials"
-            id="location">{{post.author.location}</i></small>
-        <span id="linkedinicon"><i class="fab fa-linkedin"></i></i></span> <small class="socials"
-            id="linkedin"></i>{{post.author.linkedin}</small>
-        <span id="facebookicon"><i class="fab fa-facebook"></i></span> <small class="socials"
-            id="facebook"></i>{{post.author.facebook}</small>
-        <h3 class="socials" id="review">20 <small>reviews</small></h3>
-
-
-    </div>
-    <div class="container-fluid" id="profile">
-        <div class="row">
-            <div id="contact" class="col-md-3">
-                <span class="officialphone"><i class="fas fa-phone"></i></span>
-                <h6 class="officialphone" id="officialphone">{{post.author.official} (official)</h6>
-                <h6 id="mobilephone">{{post.author.mobile} (mobile)</h6>
-                <div id="emailcontainer">
-                    <span class="email"><i class="far fa-envelope"></i></span>
-                    <h6 class="email" id="email">{{post.author.email}}</h6>
-                </div>
+    <img class=" img-responsive" id="cover-photo"
+        src="{{url_for('static',filename='images/' + post.author.cover_photo)}}" alt="">
+    <img class=" img-responsive" id="profile-photo"
+        src="{{ url_for('static',filename='images/' + post.author.image_file) }}" alt="">
+</div>
+<div id="identity">
+    <h4 id="name">{{post.author.username}}</h4>
+    <h6 id="position">{{post.author.position}}</h6>
+    <span id="locationicon"><i class="fas fa-map-marker-alt"></i></span> <small class="socials"
+        id="location">{{post.author.location}}</i></small>
+    <span id="linkedinicon"><i class="fab fa-linkedin"></i></i></span> <small class="socials"
+        id="linkedin"></i><a href="{{post.author.linkedin}}">LinkedIn</a></small>
+    <span id="facebookicon"><i class="fab fa-facebook"></i></span> <small class="socials"
+        id="facebook"></i><a href="{{post.author.facebook}}">Facebook</a></small>
+    <h3 class="socials" id="review">20 <small>reviews</small></h3>
 
 
-                <button type="button" id="chatbutton" class="btn btn-default btn-rounded"><i class="fab fa-rocketchat"></i>Chat</button>
-
-
+</div>
+<div class="container-fluid" id="profile">
+    <div class="row">
+        <div id="contact" class="col-md-3">
+            <span class="officialphone"><i class="fas fa-phone"></i></span>
+            <h6 class="officialphone" id="officialphone">{{post.author.official}} (official)</h6>
+            <h6 id="mobilephone">{{post.author.mobile}} (mobile)</h6>
+            <div id="emailcontainer">
+                <span class="email"><i class="far fa-envelope"></i></span>
+                <h6 class="email" id="email">{{post.author.email}}</h6>
             </div>
-            <div id="profilecontent" class="col-md-8">
-                <ul class="nav nav-tabs" id="myTab" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
-                            aria-controls="home" aria-selected="true">intro</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
-                            aria-controls="profile" aria-selected="false">Profile</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab"
-                            aria-controls="contact" aria-selected="false">Contact</a>
-                    </li>
-                </ul>
-                <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                        
+
+
+            <button type="button" id="chatbutton" class="btn btn-default btn-rounded"><i
+                    class="fab fa-rocketchat"></i>Chat</button>
+
+
+        </div>
+        <div id="profilecontent" class="col-md-8">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="intro-tab" data-toggle="tab" href="#intro" role="tab"
+                        aria-controls="intro" aria-selected="true">Jobs</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="resume-tab" data-toggle="tab" href="#resume" role="tab" aria-controls="resume"
+                        aria-selected="false">About {{post.author.name}}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="connects-tab" data-toggle="tab" href="#connects" role="tab"
+                        aria-controls="connects" aria-selected="false">Connects</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="intro" role="tabpanel" aria-labelledby="intro-tab">
+                    <iframe width="420" height="315"
+                        src="{{ url_for('static',filename='videos/' + post.author.video_file) }}">
+                    </iframe>
+
+                    <div id="postjobs">
+                            {% for job in allposts %}
+                            {% if post.author.id == job.author.id %}
+                            <div id="homejumbotron" class="jumbotron">
+                              <div class="container-fluid">
+                                <small id="hashtag">Category: {{job.hashtags}}</small>
+                                <div class="row">
+                                  
+                                      <img id="avatar" src="{{ url_for('static',filename='images/' + job.author.image_file) }}" alt=""
+                                      class="rounded-circle col-md-2">
+                                  
+                                  <div id="postintro" class="col-md-10 ">
+                                      <a id="authorname" href="#" class="row mr-2">{{job.author.username}}</a>
+                                    <small class="text-muted row" id="date">
+                                      {{job.date_posted.strftime('%Y-%m-%d')}}
+                                    </small>
+                                    
+                                  </div>
+                                </div>
+                              </div>
+                              
+                              
+                                <hr>
+                                {% if current_user.is_authenticated %}
+                                <a id="title" href="{{url_for('posts.post',post_id=post.id)}}">{{ job.title }}</a>
+                                {% else %}
+                                <a id="title" href="#">{{ job.title }}</a>
+                                {% endif %}
+                              <div class="footer">
+                                  <p class="article-content">{{ job.content }}</p> 
+                              </div>
+                              <hr>
+                              {% if current_user.is_authenticated %}
+                              <a href="{{url_for('posts.post',post_id=post.id)}}"><i class="far fa-comment-alt"></i><small>Leave review</small></i></a> 
+                                  {% else %}
+                                  
+                               <a href="#" data-toggle="modal" data-target="#modalLoginForm"><i class="far fa-comment-alt"></i><small>Leave review</small></i></a> 
+                         
+                                  {% endif %}
+                            </div>
+                            {%endfor%}
                     </div>
-                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">Food truck
-                        fixie
-                        locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore
-                        velit,
-                        blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer
-                        twee.
-                        Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl
-                        cillum
-                        PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica
-                        VHS
-                        salvia yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson
-                        8-bit,
-                        sustainable jean shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party
-                        scenester
-                        stumptown, tumblr butcher vero sint qui sapiente accusamus tattooed echo park.</div>
-                    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">Etsy mixtape
-                        wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny
-                        pack
-                        lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone
-                        skateboard
-                        locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings
-                        gentrify
-                        squid 8-bit cred pitchfork. Williamsburg banh mi whatever gluten-free, carles pitchfork
-                        biodiesel fixie
-                        etsy retro mlkshk vice blog. Scenester cred you probably haven't heard of them, vinyl craft beer
-                        blog
-                        stumptown. Pitchfork sustainable tofu synth chambray yr.</div>
+
                 </div>
+                <div class="tab-pane fade" id="resume" role="tabpanel" aria-labelledby="resume-tab">Food truck fixie
+                    locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore
+                    velit,
+                    blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee.
+                    Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl
+                    cillum
+                    PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS
+                    salvia yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson
+                    8-bit,
+                    sustainable jean shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester
+                    stumptown, tumblr butcher vero sint qui sapiente accusamus tattooed echo park.</div>
+                <div class="tab-pane fade" id="connects" role="tabpanel" aria-labelledby="connects-tab">Etsy mixtape
+                    wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack
+                    lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone
+                    skateboard
+                    locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings gentrify
+                    squid 8-bit cred pitchfork. Williamsburg banh mi whatever gluten-free, carles pitchfork biodiesel
+                    fixie
+                    etsy retro mlkshk vice blog. Scenester cred you probably haven't heard of them, vinyl craft beer
+                    blog
+                    stumptown. Pitchfork sustainable tofu synth chambray yr.</div>
             </div>
         </div>
     </div>
+</div>
 
 {% endblock content %}

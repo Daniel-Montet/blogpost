@@ -22,6 +22,9 @@ def account():
         if form.picture.data:
             picture_file = save_picture(form.picture.data)
             current_user.image_file= picture_file
+        if form.coverphoto.data:
+            picture_file = save_picture(form.coverphoto.data)
+            current_user.cover_photo= picture_file
         if form.video.data:
             video_file = save_video(form.video.data)
             current_user.video_file= video_file
@@ -41,8 +44,9 @@ def account():
         form.username.data = current_user.username
         form.email.data = current_user.email
     image_file = url_for('static',filename='images/'+current_user.image_file)
-    image_file = url_for('static',filename='videos/'+current_user.video_file)
-    return render_template('account.html', title='Account',image_file=image_file,form=form)
+    cover_photo = url_for('static',filename='images/'+current_user.cover_photo)
+    video_file = url_for('static',filename='videos/'+current_user.video_file)
+    return render_template('account.html', title='Account' , image_file=image_file, video_file=video_file, form=form, cover_photo= cover_photo)
 
 
 @users.route("/reset_password",methods=['GET','POST'])

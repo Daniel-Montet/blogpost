@@ -14,14 +14,16 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(20),unique=True,nullable=False)
     email = db.Column(db.String(120),unique=True,nullable=False)
     image_file = db.Column(db.String(20),nullable=False,default='default.jpg')
+    cover_photo = db.Column(db.String(20),nullable=False,default='default.jpg')
     password = db.Column(db.String(60),nullable=False)
-    location= db.Column(db.String(60),nullable=False)
-    linkedin = db.Column(db.String(60),nullable=False)
-    facebook = db.Column(db.String(60),nullable=False)
-    official = db.Column(db.Integer(60),nullable=False)
-    mobile = db.Column(db.Integer(60),nullable=False)
+    location= db.Column(db.String(60),nullable=True)
+    linkedin = db.Column(db.String(60),nullable=True)
+    facebook = db.Column(db.String(60),nullable=True)
+    official = db.Column(db.String(60),nullable=True)
+    mobile = db.Column(db.String(60),nullable=True)
     video_file = db.Column(db.String(20),default='default.mp4')
-    position= db.Column(db.Integer(60),nullable=False)
+    position= db.Column(db.String(60),nullable=True)
+    reviews = db.Column(db.String(20),nullable=True)
     posts = db.relationship('Pitch', backref='author', lazy=True)
 
 
@@ -48,6 +50,7 @@ class Pitch(db.Model):
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     content = db.Column(db.Text, nullable= False)
     image_file = db.Column(db.String(20),default='default.jpg')
+    video_file = db.Column(db.String(20),default='default.mp4')
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable= False)
     hashtags = db.Column(db.String(100))
     
@@ -59,6 +62,8 @@ class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     body = db.Column(db.String(100), nullable=False)
     timestamp = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    image_file = db.Column(db.String(20),default='default.jpg')
+    video_file = db.Column(db.String(20),default='default.mp4')
     post_id = db.Column(db.Integer, db.ForeignKey('pitch.id'), nullable= False)
     
     def __repr__(self):

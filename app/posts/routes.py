@@ -5,6 +5,7 @@ from app.posts.forms import PostForm, CommentForm
 from app.models import Pitch, Comment
 from app import db
 from flask_login import current_user,login_required
+from app.users.utils import save_picture
 
 
 posts = Blueprint('posts',__name__)
@@ -23,8 +24,18 @@ def new_post():
         for char in newstr:
             if char.startswith("#"):
                 hashtag=char.strip("#")
-                print(hashtag)
-                post = Pitch(title = form.title.data, content= form.content.data, author = current_user,hashtags=hashtag)
+               
+
+                if form.picture.data:
+                    picture_file = save_picture(form.picture.data)
+                    
+
+                if form.video.data:
+                    video_file = save_video(form.video.data)
+                    
+
+                post = Pitch(title = form.title.data, content= form.content.data, author = current_user,hashtags=hashtag
+                                    ,image_file = picture_file, video_file = video_file )
                 db.session.add(post)
                 db.session.commit()
                 return redirect(url_for('main.home'))
@@ -37,7 +48,14 @@ def post(post_id):
     comments = Comment.query.all()
     post = Pitch.query.get_or_404(post_id)
     if review.validate_on_submit():
-        comment = Comment(body= review.comment.data,post_id=post.id )
+        if form.picture.data:
+            picture_file = save_picture(form.picture.data)
+                    
+
+        if form.video.data:
+            video_file = save_video(form.video.data)
+                    
+        comment = Comment(body= review.comment.data,post_id=post.id,image_file = picture_file, video_file = video_file )
         db.session.add(comment)
         db.session.commit()
         flash('Your post has been created!','success')

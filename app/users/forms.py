@@ -36,20 +36,21 @@ class UpdateAccount(FlaskForm):
     email = StringField('Email',validators=[DataRequired(),Email()])
 
     picture = FileField('Update Profile Picture')
+    coverphoto = FileField('Update Cover Photo')
     video = FileField('Update Intro Video')
 
-    submit = SubmitField('Update profile ', validators=[FileAllowed('jpg','png','mp4')])
+    submit = SubmitField('Update profile ', validators=[FileAllowed('jpg','mp4')])
 
     location = StringField('Location',validators=[DataRequired(),
                         Length(min=2, max=20)])
     facebook = StringField('Facebook',validators=[ DataRequired() , URL() ])
     linkedin = StringField('Linkedin',validators=[ DataRequired(), URL() ])
-    official_number = IntegerField('official',validators=[DataRequired())
-    mobile_number = IntegerField('mobile',validators=[DataRequired())
-    position= StringField('position',validators=[ DataRequired(), URL() ])
+    official_number = IntegerField('official',validators=[DataRequired()])
+    mobile_number = IntegerField('mobile',validators=[DataRequired()])
+    position= StringField('position',validators=[ DataRequired()])
 
     def validate_username(self, username):
-        
+
         if username.data != current_user.username:   
             user = User.query.filter_by(username = username.data).first()
             if user:

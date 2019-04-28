@@ -47,5 +47,6 @@ def home():
 @main.route("/account/<int:post_id>",methods=['GET','POST'])
 def account(post_id):
     post = Pitch.query.get_or_404(post_id)
-    return render_template('programmeraccount.html',post=post)
+    allposts = Pitch.query.all()
+    return render_template('programmeraccount.html',post=post, allposts=allposts)
 

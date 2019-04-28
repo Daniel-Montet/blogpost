@@ -28,7 +28,7 @@
       <div id="postintro" class="col-md-10 ">
         <a id="authorname" href="#" class="row mr-2">{{post.author.username}}</a>
         <small class="text-muted row" id="date">
-          {{post.date_posted.strftime('%Y-%m-%d')}}
+          {{post.date_posted.strftime('%Y-%m-%d')}}enctype="multipart/form-data"
         </small>
 
       </div>
@@ -39,6 +39,7 @@
   <hr>
 
   <a id="title" href="{{url_for('posts.post',post_id=post.id)}}">{{ post.title }}</a>
+  
   <div class="footer">
     <p class="article-content">{{ post.content }}</p>
   </div>
@@ -55,11 +56,13 @@
   <p>{{comment.body}}</p>
   {% endif%}
   {% endfor %}
-  <form action="" method="POST">
+
+
+  <form action="" method="POST" enctype="multipart/form-data">
     {{ review.hidden_tag() }}
     <div class="form-group">
 
-      {% if  review.comment.errors %}
+      {% if review.comment.errors %}
       {{ review.comment(class="form-control form-control is-invalid") }}
       <div class="invalid-feedback">
         {% for error in review.comment.errors %}
@@ -69,6 +72,14 @@
       {% else %}
       {{ review.comment(class="form-control form-control") }}
       {% endif %}
+      <div>
+          <p>add image</p>
+          {{form.picture(class ='form-control-file')}}
+      </div>
+      <div>
+          <p>add video</p>
+          {{form.video(class ='form-control-file')}}
+      </div>
     </div>
     <div class="form-group">
       {{ review.submit(class="btn blue-gradient btn-block btn-rounded z-depth-1a") }}
