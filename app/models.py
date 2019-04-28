@@ -15,6 +15,13 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(120),unique=True,nullable=False)
     image_file = db.Column(db.String(20),nullable=False,default='default.jpg')
     password = db.Column(db.String(60),nullable=False)
+    # location= db.Column(db.String(60),nullable=False)
+    # linkedin = db.Column(db.String(60),nullable=False)
+    # facebook = db.Column(db.String(60),nullable=False)
+    # official = db.Column(db.Integer(60),nullable=False)
+    # mobile = db.Column(db.Integer(60),nullable=False)
+    # video = db.Column(db.String(20),default='default.jpg')
+
     posts = db.relationship('Pitch', backref='author', lazy=True)
 
 
@@ -40,12 +47,10 @@ class Pitch(db.Model):
     title = db.Column(db.String(100), nullable=False)
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     content = db.Column(db.Text, nullable= False)
-    # upvote = db.Column(db.Integer)
-    # downvote = db.Column(db.Integer)
+    # image_file = db.Column(db.String(20),default='default.jpg')
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable= False)
     hashtags = db.Column(db.String(100))
-    #comments = db.relationship('Comment', backref='article', lazy=True)
-
+    
 
     def __repr__(self):
         return f"Pitch('{self.title}','{self.date_posted}')"
@@ -54,7 +59,6 @@ class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     body = db.Column(db.String(100), nullable=False)
     timestamp = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-    #post_id = db.Column(db.Integer, nullable=False)
     post_id = db.Column(db.Integer, db.ForeignKey('pitch.id'), nullable= False)
     
     def __repr__(self):

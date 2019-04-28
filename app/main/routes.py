@@ -44,6 +44,8 @@ def home():
 
     return render_template('home.html', title='login',form=form, registerForm=registerForm ,posts=posts, comments=comments,hashtags=hashtags)
 
-@main.route("/circle",methods=['GET','POST'])
-def circles():
-    return render_template('circle.html')
+@main.route("/account/<int:post_id>",methods=['GET','POST'])
+def account(post_id):
+    post = Pitch.query.get_or_404(post_id)
+    return render_template('programmeraccount.html',post=post)
+

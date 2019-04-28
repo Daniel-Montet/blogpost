@@ -57,7 +57,7 @@
                 class="rounded-circle col-md-2">
             
             <div id="postintro" class="col-md-10 ">
-                <a id="authorname" href="#" class="row mr-2">{{post.author.username}}</a>
+                <a id="authorname" href="{{ url_for('main.account',post_id=post.id)  }}" class="row mr-2">{{post.author.username}}</a>
               <small class="text-muted row" id="date">
                 {{post.date_posted.strftime('%Y-%m-%d')}}
               </small>

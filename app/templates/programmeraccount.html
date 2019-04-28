@@ -14,17 +14,17 @@
     <div class="profile-photos">
 
         <img class=" img-responsive" id="cover-photo" src="{{image_file}}" alt="">
-        <img class=" img-responsive" id="profile-photo" src="{{image_file}}" alt="">
+        <img class=" img-responsive" id="profile-photo" src="{{ url_for('static',filename='images/' + post.author.image_file) }}" alt="">
     </div>
     <div id="identity">
-        <h4 id="name">{{current_user.username}}</h4>
+        <h4 id="name">{{post.author.username}}</h4>
         <h6 id="position">student at Moringa School</h6>
         <span id="locationicon"><i class="fas fa-map-marker-alt"></i></span> <small class="socials"
-            id="location">location</i></small>
+            id="location">{{post.author.location}</i></small>
         <span id="linkedinicon"><i class="fab fa-linkedin"></i></i></span> <small class="socials"
-            id="linkedin"></i>linkedIn</small>
+            id="linkedin"></i>{{post.author.linkedin}</small>
         <span id="facebookicon"><i class="fab fa-facebook"></i></span> <small class="socials"
-            id="facebook"></i>facebook</small>
+            id="facebook"></i>{{post.author.facebook}</small>
         <h3 class="socials" id="review">20 <small>reviews</small></h3>
 
 
@@ -33,11 +33,11 @@
         <div class="row">
             <div id="contact" class="col-md-3">
                 <span class="officialphone"><i class="fas fa-phone"></i></span>
-                <h6 class="officialphone" id="officialphone">+254702644345 (official)</h6>
-                <h6 id="mobilephone">+254702644345 (mobile)</h6>
+                <h6 class="officialphone" id="officialphone">{{post.author.official} (official)</h6>
+                <h6 id="mobilephone">{{post.author.mobile} (mobile)</h6>
                 <div id="emailcontainer">
                     <span class="email"><i class="far fa-envelope"></i></span>
-                    <h6 class="email" id="email">{{current_user.email}}</h6>
+                    <h6 class="email" id="email">{{post.author.email}}</h6>
                 </div>
 
 
@@ -49,7 +49,7 @@
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item">
                         <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
-                            aria-controls="home" aria-selected="true">Home</a>
+                            aria-controls="home" aria-selected="true">intro</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
@@ -62,49 +62,7 @@
                 </ul>
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                        <!-- <div>
-                            <form method="POST" action="" enctype="multipart/form-data">
-                                {{ form.hidden_tag() }}
-                                <fieldset class="form-group">
-                                    <legend class="border-bottom mb-4">Update Account</legend>
-                                    <div class="form-group">
-                                        {{ form.username.label(class="form-control-label") }}
-                                        {% if  form.username.errors %}
-                                        {{ form.username(class="form-control form-control is-invalid") }}
-                                        <div class="invalid-feedback">
-                                            {% for error in form.username.errors %}
-                                            <span>{{ error }}</span>
-                                            {% endfor %}
-                                        </div>
-                                        {% else %}
-                                        {{ form.username(class="form-control form-control") }}
-                                        {% endif %}
-
-                                    </div>
-                                    <div class="form-group">
-                                        {{ form.email.label(class="form-control-label") }}
-                                        {% if  form.email.errors %}
-                                        {{ form.email(class="form-control form-control is-invalid") }}
-                                        <div class="invalid-feedback">
-                                            {% for error in form.email.errors %}
-                                            <span>{{ error }}</span>
-                                            {% endfor %}
-                                        </div>
-                                        {% else %}
-                                        {{ form.email(class="form-control form-control") }}
-                                        {% endif %}
-                                    </div>
-                                    <div>
-                                        <p>change profile photo</p>
-                                        {{form.picture(class ='form-control-file')}}
-                                    </div>
-                                </fieldset>
-                                <div class="form-group">
-                                    {{ form.submit(class="btn btn-outline-info") }}
-                                </div>
-                            </form>
-                        </div> -->
-
+                        
                     </div>
                     <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">Food truck
                         fixie

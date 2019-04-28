@@ -93,9 +93,10 @@ body{
 /* .container-fluid{
   margin-top: 4%;   
 } */
-/* h4:hover,h3:hover,h6:hover{
+a:hover,.nav-link:hover{
   color: #e51075;
-} */
+  
+} 
 /* #navbar{
   overflow: hidden;
   height: 3rem;
@@ -168,8 +169,6 @@ body{
 #review{
   margin-left: 30%;
 }
-
-
 
 #profilecontent{
   margin-top: 2%; 
