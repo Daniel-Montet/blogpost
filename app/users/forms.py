@@ -1,13 +1,13 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileAllowed,FileField
-from wtforms import StringField,PasswordField,SubmitField,BooleanField
-from wtforms.validators import DataRequired,Length,Email,EqualTo,ValidationError
+from wtforms import StringField,PasswordField,SubmitField,BooleanField,IntegerField
+from wtforms.validators import DataRequired,Length,Email,EqualTo,ValidationError,URL
 from flask_login import current_user
 from app.models import User
 
 class Register(FlaskForm):
     username = StringField('Username',validators=[DataRequired(),
-                        Length(min=2, max=20)],)
+                        Length(min=2, max=20)])
     email = StringField('Email',validators=[DataRequired(),Email()])
 
     password = PasswordField('Password', validators=[DataRequired()])
@@ -36,8 +36,16 @@ class UpdateAccount(FlaskForm):
     email = StringField('Email',validators=[DataRequired(),Email()])
 
     picture = FileField('Update Profile Picture')
+    video = FileField('Update Intro Video')
 
-    submit = SubmitField('Update profile photo', validators=[FileAllowed('jpg','png')])
+    submit = SubmitField('Update profile ', validators=[FileAllowed('jpg','png','mp4')])
+
+    location = StringField('Location',validators=[DataRequired(),
+                        Length(min=2, max=20)])
+    facebook = StringField('Facebook',validators=[ DataRequired() , URL() ])
+    linkedin = StringField('Linkedin',validators=[ DataRequired(), URL() ])
+    official_number = IntegerField('official',validators=[DataRequired())
+    mobile_number = IntegerField('mobile',validators=[DataRequired())
 
     def validate_username(self, username):
         if username.data != current_user.username:   

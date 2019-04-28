@@ -15,12 +15,12 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(120),unique=True,nullable=False)
     image_file = db.Column(db.String(20),nullable=False,default='default.jpg')
     password = db.Column(db.String(60),nullable=False)
-    # location= db.Column(db.String(60),nullable=False)
-    # linkedin = db.Column(db.String(60),nullable=False)
-    # facebook = db.Column(db.String(60),nullable=False)
-    # official = db.Column(db.Integer(60),nullable=False)
-    # mobile = db.Column(db.Integer(60),nullable=False)
-    # video = db.Column(db.String(20),default='default.jpg')
+    location= db.Column(db.String(60),nullable=False)
+    linkedin = db.Column(db.String(60),nullable=False)
+    facebook = db.Column(db.String(60),nullable=False)
+    official = db.Column(db.Integer(60),nullable=False)
+    mobile = db.Column(db.Integer(60),nullable=False)
+    video = db.Column(db.String(20),default='default.jpg')
 
     posts = db.relationship('Pitch', backref='author', lazy=True)
 
@@ -47,7 +47,7 @@ class Pitch(db.Model):
     title = db.Column(db.String(100), nullable=False)
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     content = db.Column(db.Text, nullable= False)
-    # image_file = db.Column(db.String(20),default='default.jpg')
+    image_file = db.Column(db.String(20),default='default.jpg')
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable= False)
     hashtags = db.Column(db.String(100))
     
