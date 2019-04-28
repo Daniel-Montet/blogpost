@@ -22,9 +22,18 @@ def account():
         if form.picture.data:
             picture_file = save_picture(form.picture.data)
             current_user.image_file= picture_file
+        if form.video.data:
+            video_file = save_video(form.video.data)
+            current_user.video_file= video_file
             
         current_user.username= form.username.data
         current_user.email = form.email.data
+        current_user.location = form.location.data
+        current_user.facebook = form.facebook.data
+        current_user.linkedin = form.linkedin.data
+        current_user.official = form.official_number.data
+        current_user.mobile = form.mobile_number.data
+        current_user.position = form.position.data
         db.session.commit()
         flash('your account has been updated!', 'success')
         return redirect(url_for('users.account'))
@@ -32,6 +41,7 @@ def account():
         form.username.data = current_user.username
         form.email.data = current_user.email
     image_file = url_for('static',filename='images/'+current_user.image_file)
+    image_file = url_for('static',filename='videos/'+current_user.video_file)
     return render_template('account.html', title='Account',image_file=image_file,form=form)
 
 

@@ -10,7 +10,7 @@ from flask_socketio import SocketIO,send
 
 db = SQLAlchemy()
 bcrypt = Bcrypt()
-socketio = SocketIO()
+# socketio = SocketIO()
 
 login_manager = LoginManager()
 login_manager.session_protection = 'strong'
@@ -29,7 +29,7 @@ def create_app(config_name):
     bcrypt.init_app(app)
     login_manager.init_app(app)
     mail.init_app(app)
-    socketio.init_app(app)
+#     socketio.init_app(app)
     
     from app.users.routes import users
     from app.posts.routes import posts
@@ -41,7 +41,4 @@ def create_app(config_name):
     
     
 
-    return app,socketio
-
-if __name__ == '__main__':
-        socketio.run(app, debug=True)
+    return app

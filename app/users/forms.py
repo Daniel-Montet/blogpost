@@ -46,8 +46,10 @@ class UpdateAccount(FlaskForm):
     linkedin = StringField('Linkedin',validators=[ DataRequired(), URL() ])
     official_number = IntegerField('official',validators=[DataRequired())
     mobile_number = IntegerField('mobile',validators=[DataRequired())
+    position= StringField('position',validators=[ DataRequired(), URL() ])
 
     def validate_username(self, username):
+        
         if username.data != current_user.username:   
             user = User.query.filter_by(username = username.data).first()
             if user:

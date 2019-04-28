@@ -20,8 +20,8 @@ class User(db.Model, UserMixin):
     facebook = db.Column(db.String(60),nullable=False)
     official = db.Column(db.Integer(60),nullable=False)
     mobile = db.Column(db.Integer(60),nullable=False)
-    video = db.Column(db.String(20),default='default.jpg')
-
+    video_file = db.Column(db.String(20),default='default.mp4')
+    position= db.Column(db.Integer(60),nullable=False)
     posts = db.relationship('Pitch', backref='author', lazy=True)
 
 

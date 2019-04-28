@@ -14,6 +14,14 @@ def save_picture(form_picture):
     form_picture.save(picture_path)
     return picture_fn
 
+def save_video(form_video):
+    random_hex = secrets.token_hex(8)
+    _,f_ext = os.path.splitext(form_video.filename)
+    video_fn = random_hex + f_ext
+    video_path = os.path.join(current_app.root_path, 'static/videos',video_fn)
+    form_video.save(video_path)
+    return video_fn
+
 def send_email(user):
     token = user.get_reset_token()
     msg = Message('Password Reset Request',
