@@ -25,6 +25,9 @@ class User(db.Model, UserMixin):
     position= db.Column(db.String(60),nullable=True)
     reviews = db.Column(db.String(20),nullable=True)
     posts = db.relationship('Pitch', backref='author', lazy=True)
+    # numberofposts = db.Column(db.Integer,nullable=True)
+    # followers = db.Column(db.String(60),nullable=True)
+    # following = db.Column(db.String(60),nullable=True)
 
 
     def get_reset_token(self,expires_sec=1800):
@@ -49,8 +52,8 @@ class Pitch(db.Model):
     title = db.Column(db.String(100), nullable=False)
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     content = db.Column(db.Text, nullable= False)
-    image_file = db.Column(db.String(20),default='default.jpg')
-    video_file = db.Column(db.String(20),default='default.mp4')
+    image= db.Column(db.String(100),default='default.jpg')
+    video_file = db.Column(db.String(100),default='default.mp4')
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable= False)
     hashtags = db.Column(db.String(100))
     

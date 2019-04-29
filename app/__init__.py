@@ -7,6 +7,7 @@ from flask_login import LoginManager
 from flask_mail import Mail
 from app.config import config_options
 from flask_socketio import SocketIO,send
+from flask_uploads import UploadSet,configure_uploads,IMAGES
 
 db = SQLAlchemy()
 bcrypt = Bcrypt()
@@ -20,7 +21,7 @@ login_manager.login_message_category='info'
 
 mail = Mail()
 
-
+photos = UploadSet('photos',IMAGES)
 def create_app(config_name):
     app= Flask(__name__)
     app.config.from_object(config_options[config_name])
@@ -29,6 +30,7 @@ def create_app(config_name):
     bcrypt.init_app(app)
     login_manager.init_app(app)
     mail.init_app(app)
+    configure_uploads(app,photos)
 #     socketio.init_app(app)
     
     from app.users.routes import users

@@ -11,81 +11,121 @@
 {% endfor %}
 {% endif %}
 {% endwith %}
-{% if post.author == current_user %}
-<div>
-  <a class="btn btn-secondary btn-sm m-1" href="{{url_for('posts.update_post',post_id=post.id)}}">update</a>
-  <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal"
-    data-target="#modalConfirmDelete">Delete</button>
-</div>
-{% endif %}
-<div id="homejumbotron" class="jumbotron">
-  <div class="container-fluid">
-    <div class="row">
 
-      <img id="avatar" src="{{ url_for('static',filename='images/' + post.author.image_file) }}" alt=""
-        class="rounded-circle col-md-2">
-
-      <div id="postintro" class="col-md-10 ">
-        <a id="authorname" href="#" class="row mr-2">{{post.author.username}}</a>
-        <small class="text-muted row" id="date">
-          {{post.date_posted.strftime('%Y-%m-%d')}}enctype="multipart/form-data"
-        </small>
-
-      </div>
-    </div>
-  </div>
-
-
-  <hr>
-
-  <a id="title" href="{{url_for('posts.post',post_id=post.id)}}">{{ post.title }}</a>
-  
-  <div class="footer">
-    <p class="article-content">{{ post.content }}</p>
-  </div>
-  <hr>
+<div class="row">
+  <!-- Card -->
   {% if current_user.is_authenticated %}
-  <a href=""><small>Comments</small></i></a>
-  {% else %}
-  <a href="{{url_for('posts.post',post_id=post.id)}}"><i class="far fa-comment-alt"></i><small>Leave review</small></i></a>
+  <div id="homepagecard" class="card testimonial-card col-md-3">
+
+    <!-- Background color -->
+    <div class="card-up indigo lighten-1">
+    </div>
+
+    <!-- Avatar -->
+    
+      <img  id="homepagecardimg" src="{{url_for('static',filename='images/' + current_user.image_file)}}" class="rounded-circle avatar mx-auto white"
+        alt="woman avatar">
+   
+
+    <!-- Content -->
+    <div class="card-body">
+      <!-- Name -->
+      <h4 class="card-title">{{current_user.username}}</h4>
+      <hr>
+      <!-- Quotation -->
+      <p><i class="fas fa-quote-left"></i> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos, adipisci
+      </p>
+    </div>
+
+  </div>
+  <!-- Card -->
   {% endif %}
-  
-  
-  {% for comment in comments %}
-  {% if comment.post_id == post.id %}
-  <p>{{comment.body}}</p>
-  {% endif%}
-  {% endfor %}
 
-
-  <form action="" method="POST" enctype="multipart/form-data">
-    {{ review.hidden_tag() }}
-    <div class="form-group">
-
-      {% if review.comment.errors %}
-      {{ review.comment(class="form-control form-control is-invalid") }}
-      <div class="invalid-feedback">
-        {% for error in review.comment.errors %}
-        <span>{{ error }}</span>
-        {% endfor %}
+  <div id="contentdiv" class="col-md-8">
+      {% if post.author == current_user %}
+      <div>
+        <a class="btn btn-secondary btn-sm m-1" href="{{url_for('posts.update_post',post_id=post.id)}}">update</a>
+        <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal"
+          data-target="#modalConfirmDelete">Delete</button>
       </div>
-      {% else %}
-      {{ review.comment(class="form-control form-control") }}
       {% endif %}
-      <div>
-          <p>add image</p>
-          {{form.picture(class ='form-control-file')}}
+      <div id="homejumbotron" class="jumbotron">
+        <div class="container-fluid">
+          <div class="row">
+      
+            <img id="avatar" src="{{ url_for('static',filename='images/' + post.author.image_file) }}" alt=""
+              class="rounded-circle col-md-2">
+      
+            <div id="postintro" class="col-md-10 ">
+              <a id="authorname" href="#" class="row mr-2">{{post.author.username}}</a>
+              <small class="text-muted row" id="date">
+                {{post.date_posted.strftime('%Y-%m-%d')}}
+              </small>
+      
+            </div>
+          </div>
+        </div>
+      
+      
+        <hr>
+      
+        <a id="title" href="{{url_for('posts.post',post_id=post.id)}}">{{ post.title }}</a>
+      
+        <div class="footer">
+          <p class="article-content">{{ post.content }}</p>
+        </div>
+        <hr>
+        {% if current_user.is_authenticated %}
+        <a href=""><small>Comments</small></i></a>
+        {% else %}
+        <a href="{{url_for('posts.post',post_id=post.id)}}"><i class="far fa-comment-alt"></i><small>Leave review</small></i></a>
+        {% endif %}
+        
+        
+        {% for comment in comments %}
+        {% if comment.post_id == post.id %}
+        {% if post.author == current_user %}
+        <div>
+          <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal"
+            data-target="#modalConfirmDelete2">Delete</button>
+        </div>
+        {% endif %}
+        <p>{{comment.body}}</p>
+        {% endif%}
+        {% endfor %}
+      
+      
+        <form action="" method="POST" enctype="multipart/form-data">
+          {{ review.hidden_tag() }}
+          <div class="form-group">
+      
+            {% if review.comment.errors %}
+            {{ review.comment(class="form-control form-control is-invalid") }}
+            <div class="invalid-feedback">
+              {% for error in review.comment.errors %}
+              <span>{{ error }}</span>
+              {% endfor %}
+            </div>
+            {% else %}
+            {{ review.comment(class="form-control form-control") }}
+            {% endif %}
+            <div>
+                <p>add image</p>
+                {{review.picture(class ='form-control-file')}}
+            </div>
+            <div>
+                <p>add video</p>
+                {{review.video(class ='form-control-file')}}
+            </div>
+          </div>
+          <div class="form-group">
+            {{ review.submit(class="btn blue-gradient btn-block btn-rounded z-depth-1a") }}
+          </div>
+        </form>
+      
       </div>
-      <div>
-          <p>add video</p>
-          {{form.video(class ='form-control-file')}}
-      </div>
-    </div>
-    <div class="form-group">
-      {{ review.submit(class="btn blue-gradient btn-block btn-rounded z-depth-1a") }}
-    </div>
-  </form>
-
+      
+  </div>
 </div>
 
 
@@ -113,6 +153,36 @@
       <div class="modal-footer flex-center">
         <form action="" method="POST">
           <a href="{{ url_for('posts.delete_post', post_id=post.id) }}" class="btn  btn-outline-danger">Yes</a>
+          <a type="submit" class="btn  btn-danger waves-effect" data-dismiss="modal">No</a>
+        </form>
+      </div>
+    </div>
+    <!--/.Content-->
+  </div>
+</div>
+<!--Modal: modalConfirmDelete-->
+!--Modal: modalConfirmDelete-->
+<div class="modal fade" id="modalConfirmDelete2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-notify modal-danger" role="document">
+    <!--Content-->
+    <div class="modal-content text-center">
+      <!--Header-->
+      <div class="modal-header d-flex justify-content-center">
+        <p class="heading">Are you sure?</p>
+      </div>
+
+      <!--Body-->
+      <div class="modal-body">
+
+        <i class="fas fa-times fa-4x animated rotateIn"></i>
+
+      </div>
+
+      <!--Footer-->
+      <div class="modal-footer flex-center">
+        <form action="" method="POST">
+          <a href="{{ url_for('posts.delete_comment', post_id=comment.id) }}" class="btn  btn-outline-danger">Yes</a>
           <a type="submit" class="btn  btn-danger waves-effect" data-dismiss="modal">No</a>
         </form>
       </div>

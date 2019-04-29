@@ -1,10 +1,12 @@
 from flask import Blueprint,render_template, request,url_for,redirect,flash
 from app.models import Pitch,Comment,User
 from app.users.routes import Register,Login
+from app.users.forms import FollowForm
 from app import bcrypt,db
 from flask_login import login_user
 from flask_mail import Message
 from ..email import mail_message
+
 
 main = Blueprint('main',__name__)
 
@@ -48,5 +50,9 @@ def home():
 def account(post_id):
     post = Pitch.query.get_or_404(post_id)
     allposts = Pitch.query.all()
+    # form = FollowForm()
+    # if form.validate_on_submit():
+    #     current_user.following[] = 
+        
     return render_template('programmeraccount.html',post=post, allposts=allposts)
 

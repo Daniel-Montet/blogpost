@@ -1,9 +1,9 @@
 {% extends "layout.html" %}
 <!-- {% import 'macros.html' as macros %} -->
 {% block content %}
-<form method="POST" action="">
+<form method="POST" action="" enctype="multipart/form-data">
     {{ form.hidden_tag() }}
-    <fieldset class="form-group"  enctype="multipart/form-data">
+    <fieldset class="form-group">
         <legend class="border-bottom mb-4">{{ legend }}</legend>
 
         <div class="form-group">
@@ -39,10 +39,10 @@
             <p>image</p>
             {{form.picture(class ='form-control-file')}}
         </div>
-        <div>
+        <!-- <div>
             <p>video</p>
             {{form.video(class ='form-control-file')}}
-        </div>
+        </div> -->
     </fieldset>
     <div class="form-group">
         {{ form.submit(class="btn btn-outline-info") }}

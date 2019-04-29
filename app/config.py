@@ -8,6 +8,7 @@ class Config:
     MAIL_USE_TLS = True
     MAIL_USERNAME = "dannymkubwa@gmail.com"
     MAIL_PASSWORD = "dominuslew"
+    UPLOADED_PHOTOS_DEST ='app/static/photos'
 
 class ProdConfig(Config):
     SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL")

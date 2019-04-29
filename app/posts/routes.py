@@ -5,7 +5,7 @@ from app.posts.forms import PostForm, CommentForm
 from app.models import Pitch, Comment
 from app import db
 from flask_login import current_user,login_required
-from app.users.utils import save_picture
+from app.posts.utils import save_picture, save_video
 
 
 posts = Blueprint('posts',__name__)
@@ -24,18 +24,17 @@ def new_post():
         for char in newstr:
             if char.startswith("#"):
                 hashtag=char.strip("#")
-               
-
-                if form.picture.data:
-                    picture_file = save_picture(form.picture.data)
-                    
-
-                if form.video.data:
-                    video_file = save_video(form.video.data)
-                    
+                print(hashtag)
+                # if form.picture.data:
+                #     picture_file = save_picture(form.picture.data)
+                picture_file = save_picture(form.picture.data)
+                video_file = save_video(form.video.data )
+                image = url_for('static',filename='images/'+picture_file)
+ 
+                video = url_for('static',filename='videos/'+video_file)
 
                 post = Pitch(title = form.title.data, content= form.content.data, author = current_user,hashtags=hashtag
-                                    ,image_file = picture_file, video_file = video_file )
+                                    ,image = image, video_file = video)
                 db.session.add(post)
                 db.session.commit()
                 return redirect(url_for('main.home'))
@@ -48,12 +47,12 @@ def post(post_id):
     comments = Comment.query.all()
     post = Pitch.query.get_or_404(post_id)
     if review.validate_on_submit():
-        if form.picture.data:
-            picture_file = save_picture(form.picture.data)
+        if review.picture.data:
+                    picture_file = save_picture(review.picture.data)
                     
 
-        if form.video.data:
-            video_file = save_video(form.video.data)
+        if review.video.data:
+                    video_file = save_video(review.video.data)
                     
         comment = Comment(body= review.comment.data,post_id=post.id,image_file = picture_file, video_file = video_file )
         db.session.add(comment)
@@ -92,3 +91,14 @@ def delete_post(post_id):
     db.session.commit()
     flash('Your post has been deleted!','success')
     return redirect(url_for('main.home'))
+
+@posts.route("/post/<int:post_id>/delete",methods=['GET','POST'])
+def delete_comment(post_id):
+    post = Comment.query.get_or_404(post_id)
+    if post.author != current_user:
+        abort(403)
+    db.session.delete(post)
+    db.session.commit()
+    flash('Your comment has been deleted!','success')
+    return redirect(url_for('main.home'))
+

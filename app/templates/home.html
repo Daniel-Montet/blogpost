@@ -12,120 +12,237 @@
 {% endwith %}
 <div class="container">
   <div class="row">
-      <!-- Card -->
-      {% if current_user.is_authenticated %}
-      <div id="homepagecard" class="card testimonial-card col-md-3">
+    <!-- Card -->
+    {% if current_user.is_authenticated %}
+    <div id="homepagecard" class="card testimonial-card col-md-3">
 
-        <!-- Background color -->
-        <div class="card-up indigo lighten-1">
-        </div>
+      <!-- Background color -->
+      
+      <!-- Avatar -->
 
-        <!-- Avatar -->
-        
-          <img  id="homepagecardimg" src="{{url_for('static',filename='images/' + current_user.image_file)}}" class="rounded-circle avatar mx-auto white"
-            alt="woman avatar">
-       
+      <img id="homepagecardimg" src="{{url_for('static',filename='images/' + current_user.image_file)}}"
+        class="rounded-circle avatar mx-auto white" alt="woman avatar">
 
-        <!-- Content -->
-        <div class="card-body">
-          <!-- Name -->
-          <h4 class="card-title">{{current_user.username}}</h4>
-          <hr>
-          <!-- Quotation -->
-          <p><i class="fas fa-quote-left"></i> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos, adipisci
-          </p>
-        </div>
 
+      <!-- Content -->
+      <div class="card-body">
+        <!-- Name -->
+        <h4 class="card-title">{{current_user.username}}</h4>
+        <hr>
+        <!-- Quotation -->
+        <p><i class="fas fa-quote-left"></i> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos, adipisci
+        </p>
       </div>
-      <!-- Card -->
-      {% endif %}
-    
+
+    </div>
+    <!-- Card -->
+    {% endif %}
+
 
     <div id="contentdiv" class="col-md-8">
       <div id="commentjumbotron" class="jumbotron">
-          <span>Post Pitch .</span><a href="{{url_for('posts.new_post')}}"><i class="fas fa-pencil-alt "></i></a>
+        <span>Post Pitch .</span><a href="{{url_for('posts.new_post')}}"><i class="fas fa-pencil-alt "></i></a>
 
       </div>
       <hr>
+
       {% for post in posts %}
-      <div id="homejumbotron" class="jumbotron">
-        <div class="container-fluid">
-          <small id="hashtag">Category: {{post.hashtags}}</small>
-          <div class="row">
+      
+        <div class="postcontent">
+          <div class="container-fluid">
+              <div class="row">
+                <div class="col-md-1">
+                    <img id="avatar"  src="{{ url_for('static',filename='images/' + post.author.image_file) }}" alt="">
+                </div>
+               
+                <div class="col-md-7">
+                <a id="authorname" href="{{ url_for('main.account',post_id=post.id)  }}">{{post.author.username}}</a>
+                <br>
+                <small class="text-muted" id="date">
+                  {{post.date_posted.strftime('%Y-%m-%d')}}
+                </small>
+                </div>
+                <div class="col-md-4"  >
+                    <p id="category">#{{post.hashtags}}</p>
+                </div>
+              </div>    
             
-                <img id="avatar" src="{{ url_for('static',filename='images/' + post.author.image_file) }}" alt=""
-                class="rounded-circle col-md-2">
-            
-            <div id="postintro" class="col-md-10 ">
-                <a id="authorname" href="{{ url_for('main.account',post_id=post.id)  }}" class="row mr-2">{{post.author.username}}</a>
-              <small class="text-muted row" id="date">
-                {{post.date_posted.strftime('%Y-%m-%d')}}
-              </small>
-              
-            </div>
           </div>
-        </div>
-        
-        
-          <hr>
-          
+          <img id="postimage" src="{{url_for('static',filename='images/' + post.image)}}" alt="">
+
           <a id="title" href="{{url_for('posts.post',post_id=post.id)}}">{{ post.title }}</a>
-        <div class="footer">
-            <p class="article-content">{{ post.content }}</p> 
-        </div>
-        <hr>
-        {% if current_user.is_authenticated %}
-        <a href="{{url_for('posts.post',post_id=post.id)}}"><i class="far fa-comment-alt"></i><small>Leave review</small></i></a> 
-            {% else %}
-            
-         <a href="{{url_for('posts.post',post_id=post.id)}}" data-toggle="modal" data-target="#modalLoginForm"><i class="far fa-comment-alt"></i><small>Leave review</small></i></a> 
-   
-            {% endif %}
-      </div>
-      {%endfor%}
-
-
-      {% for hashtag in hashtags %}
-      <div id="homejumbotron" class="jumbotron">
-        <div class="container-fluid">
-          <small id="hashtag">Category: {{hashtag.hashtags}}</small>
-          <div class="row">
-            
-                <img id="avatar" src="{{ url_for('static',filename='images/' + hashtag.author.image_file) }}" alt=""
-                class="rounded-circle col-md-2">
-            
-            <div id="postintro" class="col-md-10 ">
-                <a id="authorname" href="#" class="row mr-2">{{hashtag.author.username}}</a>
-              <small class="text-muted row" id="date">
-                {{hashtag.date_posted.strftime('%Y-%m-%d')}}
-              </small>
-              
-            </div>
+          <div class="footer">
+            <p class="article-content">{{ post.content }}</p>
           </div>
-        </div>
-        
-        
           <hr>
-          
-          <a id="title" href="{{url_for('posts.post',post_id=hashtag.id)}}">{{ hashtag.title }}</a>
-        <div class="footer">
-            <p class="article-content">{{ hashtag.content }}</p> 
-        </div>
-        <hr>
-        {% if current_user.is_authenticated %}
-        <a href="{{url_for('posts.post',post_id=hashtag.id)}}"><i class="far fa-comment-alt"></i><small>Leave review</small></i></a> 
-            {% else %}
-            
-         <a href="{{url_for('posts.post',post_id=hashtag.id)}}" data-toggle="modal" data-target="#modalLoginForm"><i class="far fa-comment-alt"></i><small>Leave review</small></i></a> 
-   
-            {% endif %}
-      </div>
-      {%endfor%}
+          {% if current_user.is_authenticated %}
+          <a href="{{url_for('posts.post',post_id=post.id)}}"><i class="far fa-comment-alt"></i><small>Leave
+              review</small></i></a>
+          {% else %}
 
+          <a href="{{url_for('posts.post',post_id=post.id)}}" data-toggle="modal" data-target="#modalLoginForm"><i
+              class="far fa-comment-alt"></i><small>Leave review</small></i></a>
+
+          {% endif %}
+          
+
+        </div>
+      {% endfor %}
+    
     </div>
   </div>
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="elegantModalForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <!--Content-->
+      <div class="modal-content form-elegant">
+        <!--Header-->
+        <div class="modal-header text-center">
+          <h3 class="modal-title w-100 dark-grey-text font-weight-bold my-3" id="myModalLabel"><strong>Sign Up</strong>
+          </h3>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form method="POST" action="">
+          {{ registerForm.hidden_tag() }}
+          <!--Body-->
+          <div class="modal-body mx-4">
+            <!--Body-->
+            <div class="md-form mb-5">
+              {{ macros.render_field(registerForm.username, label_visible=false, placeholder='Username', type='text') }}
+            </div>
+
+            <div class="md-form pb-3">
+              {{ macros.render_field(registerForm.email, label_visible=false, placeholder='Your Email', type='email') }}
+
+            </div>
+            <div class="md-form pb-3">
+              {{ macros.render_field(registerForm.password, label_visible=false, placeholder='Choose password', type='password') }}
+            </div>
+            <div class="md-form pb-3">
+              {{ macros.render_field(registerForm.confirm_password, label_visible=false, placeholder='Confirm Password', type='password') }}
+            </div>
+
+            <div class="text-center mb-3">
+              {{ registerForm.submit(class="btn blue-gradient btn-block btn-rounded z-depth-1a") }}
+            </div>
+            <p class="font-small dark-grey-text text-right d-flex justify-content-center mb-3 pt-2"> or Sign in
+              with:</p>
+
+            <div class="row my-3 d-flex justify-content-center">
+              <!--Facebook-->
+              <button type="button" class="btn btn-white btn-rounded mr-md-3 z-depth-1a"><i
+                  class="fab fa-facebook-f text-center"></i></button>
+              <!--Twitter-->
+              <button type="button" class="btn btn-white btn-rounded mr-md-3 z-depth-1a"><i
+                  class="fab fa-twitter"></i></button>
+              <!--Google +-->
+              <button type="button" class="btn btn-white btn-rounded z-depth-1a"><i
+                  class="fab fa-google-plus-g"></i></button>
+            </div>
+          </div>
+        </form>
+        <!--Footer-->
+        <div class="modal-footer mx-5 pt-3 mb-1">
+          <p class="font-small grey-text d-flex justify-content-end">Already Have an Account? <a href="#"
+              class="blue-text ml-1" data-toggle="modal" data-target="#modalLoginForm" data-dismiss="modal">
+              Sign In</a></p>
+        </div>
+      </div>
+      <!--/.Content-->
+    </div>
+  </div>
+  <!-- Modal -->
+
+
+
+  <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header text-center">
+          <h4 class="modal-title w-100 font-weight-bold">Sign in</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form method="POST" action="">
+          {{ form.hidden_tag() }}
+          {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+          {% for category,message in messages%}
+          <div class="alert alert-{{ category }}">
+            {{message}}
+          </div>
+          {% endfor %}
+          {% endif %}
+          {% endwith %}
+          <div class="modal-body mx-3">
+            <div class="md-form mb-5">
+              <i class="fas fa-envelope prefix grey-text"></i>
+              {{ macros.render_field(form.email, label_visible=false, placeholder='Email', type='email') }}
+            </div>
+
+            <div class="md-form mb-4">
+              <i class="fas fa-lock prefix grey-text"></i>
+              {{ macros.render_field(form.password, label_visible=false, placeholder='Password', type='password') }}
+              <p class="font-small blue-text d-flex justify-content-end">Forgot <a
+                  href="{{url_for('users.reset_request')}}" class="blue-text ml-1">
+                  Password?</a></p>
+            </div>
+
+          </div>
+          <div class="modal-footer d-flex justify-content-center">
+            {{ form.submit(class="btn blue-gradient btn-block btn-rounded z-depth-1a") }}
+
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+
+  {% endblock content %}
+
+  <!-- 
+{% for hashtag in hashtags %}
+<div id="homejumbotron" class="jumbotron">
+  <div class="container-fluid">
+    <small id="hashtag">Category: {{hashtag.hashtags}}</small>
+    <div class="row">
+      
+          <img id="avatar" src="{{ url_for('static',filename='images/' + hashtag.author.image_file) }}" alt=""
+          class="rounded-circle col-md-2">
+      
+      <div id="postintro" class="col-md-10 ">
+          <a id="authorname" href="#" class="row mr-2">{{hashtag.author.username}}</a>
+        <small class="text-muted row" id="date">
+          {{hashtag.date_posted.strftime('%Y-%m-%d')}}
+        </small>
+        
+      </div>
+    </div>
+  </div>
+  
+  
+    <hr>
+    
+    <a id="title" href="{{url_for('posts.post',post_id=hashtag.id)}}">{{ hashtag.title }}</a>
+  <div class="footer">
+      <p class="article-content">{{ hashtag.content }}</p> 
+  </div>
+  <hr>
+  {% if current_user.is_authenticated %}
+  <a href="{{url_for('posts.post',post_id=hashtag.id)}}"><i class="far fa-comment-alt"></i><small>Leave review</small></i></a> 
+      {% else %}
+      
+   <a href="{{url_for('posts.post',post_id=hashtag.id)}}" data-toggle="modal" data-target="#modalLoginForm"><i class="far fa-comment-alt"></i><small>Leave review</small></i></a> 
+
+      {% endif %}
 </div>
-
-
-
-{% endblock content %}
+{%endfor%} -->

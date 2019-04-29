@@ -73,7 +73,7 @@
                     </div>
                     <div id="postjobs">
                             {% for post in posts %}
-                            {% if post.id = current_user.id %}
+                            {% if post.id == current_user.id %}
                             <div id="homejumbotron" class="jumbotron">
                               <div class="container-fluid">
                                 <small id="hashtag">Category: {{post.hashtags}}</small>
