@@ -54,7 +54,7 @@ class Pitch(db.Model):
     content = db.Column(db.Text, nullable= False)
     image= db.Column(db.String(100),default='default.jpg')
     video_file = db.Column(db.String(100),default='default.mp4')
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable= False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable= True)
     hashtags = db.Column(db.String(100))
     
 
@@ -67,7 +67,7 @@ class Comment(db.Model):
     timestamp = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     image_file = db.Column(db.String(100),default='default.jpg')
     video_file = db.Column(db.String(100),default='default.mp4')
-    post_id = db.Column(db.Integer, db.ForeignKey('pitch.id'), nullable= False)
+    post_id = db.Column(db.Integer, db.ForeignKey('pitch.id'), nullable= True)
     
     def __repr__(self):
         return f"Comment('{self.body}', '{self.timestamp}')"

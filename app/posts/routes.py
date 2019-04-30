@@ -93,9 +93,9 @@ def delete_post(post_id):
     flash('Your post has been deleted!','success')
     return redirect(url_for('main.home'))
 
-@posts.route("/post/<int:post_id>/delete",methods=['GET','POST'])
-def delete_comment(post_id):
-    post = Comment.query.get_or_404(post_id)
+@posts.route("/post/<comment>/delete",methods=['GET','POST'])
+def delete_comment(comment):
+    post = Comment.query.get_or_404(comment)
     if post.author != current_user:
         abort(403)
     db.session.delete(post)
