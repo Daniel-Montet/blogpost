@@ -65,8 +65,8 @@ class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     body = db.Column(db.String(100), nullable=False)
     timestamp = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-    image_file = db.Column(db.String(20),default='default.jpg')
-    video_file = db.Column(db.String(20),default='default.mp4')
+    image_file = db.Column(db.String(100),default='default.jpg')
+    video_file = db.Column(db.String(100),default='default.mp4')
     post_id = db.Column(db.Integer, db.ForeignKey('pitch.id'), nullable= False)
     
     def __repr__(self):

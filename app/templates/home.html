@@ -68,7 +68,7 @@
               </div>    
             
           </div>
-          <img id="postimage" src="{{url_for('static',filename='images/' + post.image)}}" alt="">
+          <img id="postimage" src="{{post.image}}" alt="">
 
           <a id="title" href="{{url_for('posts.post',post_id=post.id)}}">{{ post.title }}</a>
           <div class="footer">

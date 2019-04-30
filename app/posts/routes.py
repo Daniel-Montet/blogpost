@@ -28,13 +28,13 @@ def new_post():
                 # if form.picture.data:
                 #     picture_file = save_picture(form.picture.data)
                 picture_file = save_picture(form.picture.data)
-                video_file = save_video(form.video.data )
+                # video_file = save_video(form.video.data )
                 image = url_for('static',filename='images/'+picture_file)
  
-                video = url_for('static',filename='videos/'+video_file)
+                # video = url_for('static',filename='videos/'+video_file)
 
                 post = Pitch(title = form.title.data, content= form.content.data, author = current_user,hashtags=hashtag
-                                    ,image = image, video_file = video)
+                                    ,image = image)
                 db.session.add(post)
                 db.session.commit()
                 return redirect(url_for('main.home'))
@@ -47,14 +47,15 @@ def post(post_id):
     comments = Comment.query.all()
     post = Pitch.query.get_or_404(post_id)
     if review.validate_on_submit():
-        if review.picture.data:
-                    picture_file = save_picture(review.picture.data)
+        # if review.picture.data:
+        #             picture_file = save_picture(review.picture.data)
                     
 
-        if review.video.data:
-                    video_file = save_video(review.video.data)
-                    
-        comment = Comment(body= review.comment.data,post_id=post.id,image_file = picture_file, video_file = video_file )
+        # if review.video.data:
+        #             video_file = save_video(review.video.data)
+        picture_file = save_picture(review.picture.data)
+        image = url_for('static',filename='images/'+picture_file)           
+        comment = Comment(body= review.comment.data,post_id=post.id,image_file = image)
         db.session.add(comment)
         db.session.commit()
         flash('Your post has been created!','success')
