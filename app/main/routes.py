@@ -6,6 +6,7 @@ from app import bcrypt,db
 from flask_login import login_user
 from flask_mail import Message
 from ..email import mail_message
+from ..requests import get_quote
 
 
 main = Blueprint('main',__name__)
@@ -17,6 +18,10 @@ def home():
     posts = Pitch.query.all()
     comments = Comment.query.all()
     hashtags= Pitch.query.filter_by(hashtags='property').all()
+    quote_object = get_quote()
+    # author= quote_object["author"]
+    quote = quote_object["quote"]
+    print(quote)
     
     # if current_user.is_authenticated:
     #     return redirect(url_for('circles'))
@@ -44,7 +49,7 @@ def home():
             flash('Login Unsuccessful. Please check email and password','danger')
     #form=form, registerForm=registerForm
 
-    return render_template('home.html', title='login',form=form, registerForm=registerForm ,posts=posts, comments=comments,hashtags=hashtags)
+    return render_template('home.html', title='login',form=form, registerForm=registerForm ,posts=posts, comments=comments,hashtags=hashtags,quote=quote)
 
 @main.route("/account/<int:post_id>",methods=['GET','POST'])
 def account(post_id):

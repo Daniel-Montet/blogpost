@@ -114,7 +114,7 @@ aria-hidden="true">
    
     <div class="modal-footer flex-center">
       <form action="" method="POST">
-        <a href="{{ url_for('posts.delete_comment', comment=comment) }}" class="btn  btn-outline-danger">Yes</a>
+        <a href="{{ url_for('posts.delete_comment', comment_id=comment.id) }}" class="btn  btn-outline-danger">Yes</a>
         <a type="submit" class="btn  btn-danger waves-effect" data-dismiss="modal">No</a>
       </form>
     </div>

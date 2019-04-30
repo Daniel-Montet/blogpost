@@ -83,6 +83,17 @@ def update_post(post_id):
     return render_template('create_post.html', title='Update Post',
     form=form,legend='Update Post')
 
+@posts.route("/post/delete/<int:comment_id>/delete",methods=['GET','POST'])
+def delete_comment(comment_id):
+    post = Comment.query.get_or_404(comment_id)
+    # if post.author != current_user:
+    #     abort(403)
+    db.session.delete(post)
+    db.session.commit()
+    flash('Your comment has been deleted!','success')
+    return redirect(url_for('main.home'))
+
+
 @posts.route("/post/<int:post_id>/delete",methods=['GET','POST'])
 def delete_post(post_id):
     post = Pitch.query.get_or_404(post_id)
@@ -93,13 +104,6 @@ def delete_post(post_id):
     flash('Your post has been deleted!','success')
     return redirect(url_for('main.home'))
 
-@posts.route("/post/<comment>/delete",methods=['GET','POST'])
-def delete_comment(comment):
-    post = Comment.query.get_or_404(comment)
-    if post.author != current_user:
-        abort(403)
-    db.session.delete(post)
-    db.session.commit()
-    flash('Your comment has been deleted!','success')
-    return redirect(url_for('main.home'))
+
+
 

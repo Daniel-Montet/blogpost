@@ -1,6 +1,6 @@
-# Pitch-it
+# Blogpost
 
-#### A platform for sharing ideas in the neatest and most presentable way possible to the world and get constructive criticism on where to improve on, 2019.
+#### A platform for blogging and sharing ideas, 2019.
 
 #### By **Daniel Montet**
 

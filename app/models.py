@@ -73,3 +73,8 @@ class Comment(db.Model):
         return f"Comment('{self.body}', '{self.timestamp}')"
 
 
+class Quote:
+    def __init__(self,author,quote):
+        self.author = author
+        self.quote = quote
+
