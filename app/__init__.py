@@ -28,7 +28,6 @@ def create_app(config_name):
     bcrypt.init_app(app)
     login_manager.init_app(app)
     mail.init_app(app)
-    configure_uploads(app,photos)
 
     
     from app.users.routes import users
