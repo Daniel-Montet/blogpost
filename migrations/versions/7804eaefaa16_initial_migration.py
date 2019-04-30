@@ -1,8 +1,8 @@
-"""empty message
+"""Initial Migration
 
-Revision ID: 7543e79a891d
-Revises: 01a44303f3e5
-Create Date: 2019-04-30 06:55:10.505574
+Revision ID: 7804eaefaa16
+Revises: 
+Create Date: 2019-04-30 14:25:39.015409
 
 """
 from alembic import op
@@ -10,8 +10,8 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '7543e79a891d'
-down_revision = '01a44303f3e5'
+revision = '7804eaefaa16'
+down_revision = None
 branch_labels = None
 depends_on = None
 
@@ -44,7 +44,7 @@ def upgrade():
     sa.Column('content', sa.Text(), nullable=False),
     sa.Column('image', sa.String(length=100), nullable=True),
     sa.Column('video_file', sa.String(length=100), nullable=True),
-    sa.Column('user_id', sa.Integer(), nullable=False),
+    sa.Column('user_id', sa.Integer(), nullable=True),
     sa.Column('hashtags', sa.String(length=100), nullable=True),
     sa.ForeignKeyConstraint(['user_id'], ['user.id'], ),
     sa.PrimaryKeyConstraint('id')
@@ -53,9 +53,9 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('body', sa.String(length=100), nullable=False),
     sa.Column('timestamp', sa.DateTime(), nullable=False),
-    sa.Column('image_file', sa.String(length=20), nullable=True),
-    sa.Column('video_file', sa.String(length=20), nullable=True),
-    sa.Column('post_id', sa.Integer(), nullable=False),
+    sa.Column('image_file', sa.String(length=100), nullable=True),
+    sa.Column('video_file', sa.String(length=100), nullable=True),
+    sa.Column('post_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['post_id'], ['pitch.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
