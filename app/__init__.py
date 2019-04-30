@@ -6,7 +6,7 @@ from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from flask_mail import Mail
 from app.config import config_options
-from flask_uploads import UploadSet,configure_uploads,IMAGES
+
 
 db = SQLAlchemy()
 bcrypt = Bcrypt()
