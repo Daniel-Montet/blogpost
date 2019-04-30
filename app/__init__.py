@@ -6,12 +6,11 @@ from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from flask_mail import Mail
 from app.config import config_options
-from flask_socketio import SocketIO,send
 from flask_uploads import UploadSet,configure_uploads,IMAGES
 
 db = SQLAlchemy()
 bcrypt = Bcrypt()
-# socketio = SocketIO()
+
 
 login_manager = LoginManager()
 login_manager.session_protection = 'strong'
@@ -31,7 +30,7 @@ def create_app(config_name):
     login_manager.init_app(app)
     mail.init_app(app)
     configure_uploads(app,photos)
-#     socketio.init_app(app)
+
     
     from app.users.routes import users
     from app.posts.routes import posts

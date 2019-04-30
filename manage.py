@@ -7,15 +7,12 @@ app = create_app('production')
 
 manager = Manager(app)
 migrate = Migrate(app,db)
-# manager = Manager(socketio)
-# migrate = Migrate(socketio,db) 
+
 
 manager.add_command('server',Server)
 manager.add_command('db',MigrateCommand)
 
-# @socketio.on('message')
-# def handleMessage(msg):
-#     print('Message' + msg)
+
 
 if __name__ == "__main__":
     manager.run()
